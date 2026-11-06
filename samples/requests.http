@@ -1,0 +1,32 @@
+### Positive feedback
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{ "customerName": "Asha", "email": "asha@example.com", "product": "Blender", "rating": 5, "comment": "Works really well" }
+
+### Negative feedback -> alert file in ./alerts
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{ "customerName": "Ravi", "email": "ravi@example.com", "product": "Kettle", "rating": 1, "comment": "Stopped working" }
+
+### Rating 3 with a complaint keyword -> NEGATIVE
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{ "customerName": "Meena", "email": "meena@example.com", "product": "Iron", "rating": 3, "comment": "I want a refund" }
+
+### Invalid -> 400
+POST http://localhost:8080/api/feedback
+Content-Type: application/json
+
+{ "customerName": "", "email": "not-an-email", "product": "Fan", "rating": 9 }
+
+### List all
+GET http://localhost:8080/api/feedback
+
+### Summary
+GET http://localhost:8080/api/feedback/summary
+
+### One item (paste an id from a POST response)
+GET http://localhost:8080/api/feedback/REPLACE-WITH-ID

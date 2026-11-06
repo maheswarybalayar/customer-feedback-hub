@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:feedbacktestdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: 18091
+
+app:
+  intake:
+    inbox-dir: target/test-inbox
+  alerts:
+    output-dir: target/test-alerts
+  endpoints:
+    received-out: seda:feedback-received?waitForTaskToComplete=Never
+    received-in:  seda:feedback-received
+    alerts-out:   seda:feedback-alerts?waitForTaskToComplete=Never
+    alerts-in:    seda:feedback-alerts
+    dlq-out:      mock:feedback-dlq

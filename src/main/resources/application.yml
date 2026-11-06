@@ -1,0 +1,58 @@
+# Default profile: real Kafka on localhost:9092
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: feedback-hub
+
+  datasource:
+    url: jdbc:h2:file:./data/feedbackdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+camel:
+  servlet:
+    mapping:
+      context-path: /api/*
+
+springdoc:
+  swagger-ui:
+    url: /api/api-doc
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  hello:
+    enabled: false
+  kafka:
+    brokers: ${KAFKA_BROKERS:localhost:9092}
+  intake:
+    inbox-dir: ./inbox
+  alerts:
+    output-dir: ./alerts
+  endpoints:
+    received-out: kafka:feedback.received?brokers=${app.kafka.brokers}
+    received-in: kafka:feedback.received?brokers=${app.kafka.brokers}&groupId=feedback-processor&autoOffsetReset=earliest
+    alerts-out: kafka:feedback.alerts?brokers=${app.kafka.brokers}
+    alerts-in: kafka:feedback.alerts?brokers=${app.kafka.brokers}&groupId=feedback-alerts&autoOffsetReset=earliest
+    dlq-out: kafka:feedback.dlq?brokers=${app.kafka.brokers}

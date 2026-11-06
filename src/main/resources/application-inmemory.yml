@@ -1,0 +1,23 @@
+# No Docker / no Kafka:  mvn spring-boot:run -Dspring-boot.run.profiles=inmemory
+spring:
+  datasource:
+    url: jdbc:h2:mem:feedbackdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  h2:
+    console:
+      enabled: false
+
+app:
+  endpoints:
+    received-out: seda:feedback-received?waitForTaskToComplete=Never
+    received-in:  seda:feedback-received
+    alerts-out:   seda:feedback-alerts?waitForTaskToComplete=Never
+    alerts-in:    seda:feedback-alerts
+    dlq-out:      log:feedback.dlq?level=WARN&showBody=true&showHeaders=true

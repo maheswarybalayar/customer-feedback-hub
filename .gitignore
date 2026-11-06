@@ -1,0 +1,23 @@
+target/
+inbox/
+alerts/
+.idea/
+*.iml
+.vscode/
+# Eclipse
+.metadata/
+.settings/
+.classpath
+.project
+
+# H2 database
+data/
+*.mv.db
+*.trace.db
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

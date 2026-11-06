@@ -1,0 +1,6 @@
+customerName,email,product,rating,comment
+Asha,asha@example.com,Blender,5,Works really well
+Ravi,ravi@example.com,Kettle,1,Stopped working in a week
+Meena,meena@example.com,Iron,3,Okay but arrived late
+Arun,arun@example.com,Fan,4,
+Divya,divya@example.com,Toaster,five,this line has a bad rating and will be skipped
